@@ -4,8 +4,9 @@ const USER_VICTORY = 1;
 const COMPUTER_VICTORY = 2;
 const END_GAME_SCORE = 5;
 const CHOICE = ["Pierre", "Papier", "Ciseaux"];
-
-playGame()
+const displayScore = document.querySelector('#display-score');
+const displayWinner = document.querySelector('#display-winner');
+let userScore = 0 , computerScore = 0;
 
 // Compute computer choice
 function computerPlay() {
@@ -19,35 +20,47 @@ function computerPlay() {
   }
 }
 
-function playRound() {  
+function playRound(userChoice) {  
 
-  let a = 1;
-  let b = 2;
+  // Computer choice
+  computerChoice = computerPlay();
 
-    // User Choice
-    userChoice = parseInt(prompt("Jeune éphèbe, quel est ton choix ? 0-Pierre / 1-Papier / 2-Ciseaux"));
+  // Print the user choice
+  console.log(`Le joueur choisi, ${CHOICE[userChoice]}`)
 
-    // Computer choice
-    computerChoice = computerPlay();
+  // Print the computer choice
+  console.log(`L'ordinateur choisi, ${CHOICE[computerChoice]}`)
 
-    // Print the user 
-    console.log(`Le joueur a choisi, ${CHOICE[userChoice]}`)
+  stringDisplayWinner = `L'ordinateur choisi, ${CHOICE[computerChoice]}`
 
-    // Print the computer choice
-    console.log(`Le joueur a choisi, ${CHOICE[computerChoice]}`)
+  // Compute the winner
+  diff = userChoice - computerChoice;
+  if (diff == 0) {
 
-    // Définir le grand gagnant
-    diff = userChoice - computerChoice;
-    if (diff == 0) {
-        console.log("Egalité !")
-        return NO_WINNER
-      } else if (diff == 1 || diff == -2) {
-        console.log("Le joueur gagne !")
-        return USER_VICTORY
-      } else {
-        console.log("L'ordinateur gagne !")
-        return COMPUTER_VICTORY
-      }
+      // Tie
+      console.log("Egalité")
+      stringDisplayWinner += ". Egalité";
+
+    } else if (diff == 1 || diff == -2) {
+
+      // Player wins
+      userScore += 1;
+      console.log("Le joueur gagne")
+      stringDisplayWinner += ". Le joueur gagne";
+
+    } else {
+
+      // Computer wins
+      computerScore += 1;
+      console.log("L'ordinateur gagne")
+      stringDisplayWinner += ". L'ordinateur gagne";
+
+    }
+
+    // Update displays
+    displayWinner.textContent = stringDisplayWinner;
+    displayScore.textContent = `Joueur ${userScore} - Ordinateur ${computerScore}`;
+
 
   }
 
@@ -70,3 +83,21 @@ function playRound() {
     }
   }
 
+
+// Action on rock button
+const buttonRock = document.querySelector('#btn-rock');
+buttonRock.addEventListener('click', () => {
+  playRound(0);
+});
+
+// Action on paper button
+const buttonPaper = document.querySelector('#btn-paper');
+buttonPaper.addEventListener('click', () => {
+  playRound(1);
+});
+
+// Action on scissors button
+const buttonScissors = document.querySelector('#btn-scissors');
+buttonScissors.addEventListener('click', () => {
+  playRound(2);
+});
