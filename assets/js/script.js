@@ -4,6 +4,7 @@ const USER_VICTORY = 1;
 const COMPUTER_VICTORY = 2;
 const END_GAME_SCORE = 5;
 const CHOICE = ["Pierre", "Papier", "Ciseaux"];
+const ROCK = 0, PAPER = 1, SCISSORS = 2;
 const displayScore = document.querySelector('#display-score');
 const displayWinner = document.querySelector('#display-winner');
 let userScore = 0 , computerScore = 0;
@@ -87,17 +88,17 @@ function playRound(userChoice) {
 // Action on rock button
 const buttonRock = document.querySelector('#btn-rock');
 buttonRock.addEventListener('click', () => {
-  playRound(0);
+  playRound(ROCK);
 });
 
 // Action on paper button
 const buttonPaper = document.querySelector('#btn-paper');
 buttonPaper.addEventListener('click', () => {
-  playRound(1);
+  playRound(PAPER);
 });
 
 // Action on scissors button
 const buttonScissors = document.querySelector('#btn-scissors');
 buttonScissors.addEventListener('click', () => {
-  playRound(2);
+  playRound(SCISSORS);
 });
